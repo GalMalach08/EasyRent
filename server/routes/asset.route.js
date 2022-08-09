@@ -12,7 +12,6 @@ const auth = require("../middlewares/auth");
 // Upload asset
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     const images = [];
     const imagesArr = req.body.images;
     let flag = true;
@@ -69,7 +68,6 @@ router.get("/category/:id", auth(), async (req, res) => {
       })
         .skip(parseInt(skip))
         .limit(parseInt(limit));
-      console.log(assets);
       res.status(200).send({
         assets,
         assetsTotalLength,
@@ -104,7 +102,6 @@ router.post("/aproveasset", auth(), async (req, res) => {
     await NotApprovedAsset.findByIdAndDelete(id);
     const user = await User.findById(newAsset.userId);
     res.send({ success: true });
-    console.log(user);
     sendAssetApprovedEmail(
       user.email,
       newAsset,

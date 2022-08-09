@@ -20,23 +20,27 @@ const getUserProps = (props) => {
 };
 
 const checkUsersPrefrences = async (asset) => {
+  console.log("here");
   const usersPref = await UserPref.find();
   usersPref.forEach(async (pref) => {
     const roomsArr = pref.roomsNumber.split("-");
     const minRoom = Number(roomsArr[0]);
     const maxRoom = Number(roomsArr[1]);
+
     if (
       pref.area.includes(asset.area) &&
       pref.price >= asset.pricePerMonth &&
       minRoom <= asset.roomsNumber <= maxRoom
     ) {
       const user = await User.findById(pref.userId);
-      sendRelevantAssetEmail(
-        user.email,
-        asset,
-        user.firstname,
-        user.preferredLang
-      );
+      if (user) {
+        sendRelevantAssetEmail(
+          user.email,
+          asset,
+          user.firstname,
+          user.preferredLang
+        );
+      }
     }
   });
 };
