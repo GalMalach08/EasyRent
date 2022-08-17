@@ -88,6 +88,8 @@ const UploadAsset = (props) => {
   const [functionToExcute, setFunctionToExcute] = useState("");
   const [notApproved, setNotApproved] = useState(true);
   const [modalMessage, setModalMessage] = useState("");
+  const [currentAddress, setCurrentAddress] = useState("");
+
   const galleryRef = useRef();
   const addressRef = useRef();
   const classes = useStyles();
@@ -177,7 +179,11 @@ const UploadAsset = (props) => {
             : "Please enter valid address"
         }`,
         function(value) {
-          return getLocation(value);
+          if (value !== currentAddress) {
+            setCurrentAddress(value);
+            return getLocation(value);
+          }
+          return true;
         }
       )
       .test("isEnglish", `${t("hebrewErr.1")}`, (value) =>
@@ -300,7 +306,6 @@ const UploadAsset = (props) => {
       notApproved,
     };
   };
-
   const caculatePricePer = () => {
     return timeValue === 0
       ? "ליום"
@@ -437,14 +442,13 @@ const UploadAsset = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
+    // Check if we are updating or uploading
     if (location.pathname.includes("/update")) {
-      // Check if we are updating or uploading
       dispatch(getAssetById(id))
         .unwrap()
         .then(({ asset }) => {
+          // make sure that the user that update is the owner
           if (asset.userId._id === user._id) {
-            // make sure that the user that update is the owner
-            console.log(asset);
             setIsUpdate(true);
             if (!asset.notApproved) setNotApproved(false);
             const newImagesArr = [];
@@ -487,9 +491,18 @@ const UploadAsset = (props) => {
         });
     } else {
       setIsUpdate(false);
+      setUpdatedAsset("");
+      setEnterDate(new Date());
+      setExitDate(new Date());
+      setTimeValue(0);
+      setIsSublet("1");
+      setRoomsValue("1");
+      setArea("0");
+      setGalleryImages([]);
+      setImagesArr([]);
       setIsLoading(false);
     }
-  }, []);
+  }, [location]);
 
   return (
     <>
@@ -919,7 +932,7 @@ const UploadAsset = (props) => {
                           : true
                       }
                       className="approve_btn"
-                      // style={{ width: `${updatedAsset ? "44%" : "95%"}` }}
+                      style={{ width: `${updatedAsset ? "44%" : "95%"}` }}
                       variant="contained"
                       color="primary"
                       onClick={() =>

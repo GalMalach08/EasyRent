@@ -78,6 +78,7 @@ export const isAuth = createAsyncThunk("users/isAuth", async () => {
   try {
     const res = await fetch("/user/isauth", getAuthHeader());
     const data = await res.json();
+    console.log(data);
     if (data.user) {
       return { data: data.user, auth: true };
     } else {

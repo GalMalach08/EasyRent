@@ -5,7 +5,7 @@ const httpStatus = require("http-status");
 
 const verify = (req, res, resolve, reject, rights) => async (err, user) => {
   if (err || !user) {
-    return reject(new Error(httpStatus.UNAUTHORIZED, "Sorry, unauthorized"));
+    return res.send({ error: "User unauthorized" });
   }
   req.user = {
     _id: user.id,
@@ -37,18 +37,16 @@ const verify = (req, res, resolve, reject, rights) => async (err, user) => {
   resolve();
 };
 
-const auth =
-  (...rights) =>
-  async (req, res, next) => {
-    return new Promise((resolve, reject) => {
-      passport.authenticate(
-        "jwt",
-        { session: false },
-        verify(req, res, resolve, reject, rights)
-      )(req, res, next);
-    })
-      .then(() => next())
-      .catch((err) => next(err));
-  };
+const auth = (...rights) => async (req, res, next) => {
+  return new Promise((resolve, reject) => {
+    passport.authenticate(
+      "jwt",
+      { session: false },
+      verify(req, res, resolve, reject, rights)
+    )(req, res, next);
+  })
+    .then(() => next())
+    .catch((err) => next(err));
+};
 
 module.exports = auth;

@@ -7,6 +7,8 @@ import { numberWithCommas } from "../../utils/tools";
 // Components
 import ShareModal from "./ShareModal";
 import Carousel from "../caursel/Carusel";
+// Utils
+import { getLabel } from "../../utils/tools";
 // Material ui
 import {
   Chip,
@@ -51,6 +53,10 @@ const AssetCard = ({ asset, assetPage }) => {
         : dir === "rtl"
         ? "השכרה"
         : "Rent",
+    },
+    {
+      label: dir === "rtl" ? asset.area : getLabel(asset.area, dir),
+      color: "secondary",
     },
   ];
 
@@ -275,7 +281,7 @@ const AssetCard = ({ asset, assetPage }) => {
             </List>
 
             {/* Chips */}
-            <p
+            <div
               className={`${
                 dir === "rtl" ? "asset_labels_hebrew" : "asset_labels"
               }`}
@@ -292,7 +298,7 @@ const AssetCard = ({ asset, assetPage }) => {
                   className="chip"
                 />
               ))}
-            </p>
+            </div>
           </div>
         </div>
       </Link>

@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 // import { setIsAuth } from "../../store/actions";
 import { registerUser } from "../../store/actions/user.thunk";
 
-import RegisterModal from "./registrationModal/RegistrationModal";
 // material ui
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -32,7 +31,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Alert from "@material-ui/lab/Alert";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import { Loader, phoneRegex } from "../../utils/tools";
+import { phoneRegex } from "../../utils/tools";
 
 // formik
 import { Formik } from "formik";
@@ -96,11 +95,6 @@ const SignUp = () => {
     dir === "rtl" ? "he" : "en"
   );
 
-  const mes = useMemo(() => {
-    return setPreferredLang(dir === "rtl" ? "he" : "en");
-  }, [dir]);
-
-  const [registerModalOpen, setRegisterModalOpen] = useState(true);
   const [score, setScore] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();

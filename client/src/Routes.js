@@ -25,7 +25,6 @@ import {
   jssPreset,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import { CustomTheme } from "./utils/tools";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createTheme } from "@material-ui/core/styles";

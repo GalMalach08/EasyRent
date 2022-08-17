@@ -22,6 +22,19 @@ export const toastify = (type, message) => {
   }
 };
 
+// Get the area of the asset and return
+export const getLabel = (area) => {
+  console.log(area);
+  if (area === "הצפון הישן") return "The old north";
+  if (area === "הצפון החדש") return "The new north";
+  if (area === "לב העיר") return "Center";
+  if (area === "שוק הכרמל") return "The carmel market";
+  if (area === "יפו") return "Jaffa";
+  if (area === "רוטשילד") return "Rotchild";
+  if (area === "כרם התימנים") return "The cerem";
+  if (area === "פלורנטין") return "Florentin";
+};
+
 // Loader
 export const Loader = () => {
   return (

@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import "./style.css";
 
 const Home = () => {
+  console.count();
   const dispatch = useDispatch();
   const [rentCount, setRentCount] = useState(0);
   const [subletCount, setSubletCount] = useState(0);
@@ -22,7 +23,6 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.users.data);
   const dir = useSelector((state) => state.users.language.dir);
-  const isVerified = useSelector((state) => state.users.data.isVerified);
 
   const { t } = useTranslation();
 
@@ -117,8 +117,8 @@ const Home = () => {
           </header>
           <div className="styled_container">
             <div className="styled_flex">
-              {content.map((item, i) => (
-                <HomeCard item={item} />
+              {content.map((item) => (
+                <HomeCard key={item.id} item={item} />
               ))}
             </div>
           </div>

@@ -217,7 +217,7 @@ router.get("/isauth", auth(), async (req, res) => {
   try {
     res.send({ user: req.user });
   } catch (err) {
-    console.log("error", err);
+    res.send({ error: err });
   }
 });
 module.exports = router;
