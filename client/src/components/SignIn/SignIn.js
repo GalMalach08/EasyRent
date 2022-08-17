@@ -150,9 +150,15 @@ const SignIn = (props) => {
           };
           dispatch(registerUser(newUserObj))
             .unwrap()
-            .then(({ auth, data }) => {
+            .then(({ message, data }) => {
               if (data) {
                 navigate(prevUrl);
+              } else {
+                if (message === "כתובת האיימיל הינה בשימוש") {
+                  toastify("ERROR", `${t("signUpMessageError.1")}`);
+                } else {
+                  toastify("ERROR", message);
+                }
               }
             });
         }
