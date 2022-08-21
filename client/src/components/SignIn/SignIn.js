@@ -259,7 +259,6 @@ const SignIn = (props) => {
                 textButton="התחבר באמצעות פייסבוק"
                 cssClass="loginBtn loginBtn--facebook"
               /> */}
-
               <Button
                 disabled={
                   !buttonDisabled &&
@@ -299,7 +298,6 @@ const SignIn = (props) => {
                 onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
               />
-
               <Grid container>
                 <Grid item>
                   <Link to="/signup" variant="body2">

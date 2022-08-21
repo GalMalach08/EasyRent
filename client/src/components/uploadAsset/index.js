@@ -469,6 +469,7 @@ const UploadAsset = (props) => {
             setRoomsValue(asset.roomsNumber);
             setArea(asset.area);
             asset.images.forEach((image) => {
+              console.log(image);
               newImagesArr.push({
                 image: image.image,
                 name: image.imageName,
